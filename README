@@ -1,0 +1,83 @@
+# Visual Studio App Center SDK for Axway Titanium
+App Center is your continuous integration, delivery and learning solution for iOS and Android apps. Get faster release cycles, higher-quality apps, and the insights to build what users want.
+
+## App Center Crashes Module
+App Center Crashes will automatically generate a crash log every time your app crashes. The log is first written to the device's storage and when the user starts the app again, the crash report will be sent to App Center. Collecting crashes works for both beta and live apps, i.e. those submitted to the App Store. Crash logs contain valuable information for you to help fix the crash.
+
+## App Center Analytics Module
+App Center Analytics helps you understand user behavior and customer engagement to improve your app. The SDK automatically captures session count, device properties like model, OS version, etc. You can define your own custom events to measure things that matter to you. All the information captured is available in the App Center portal for you to analyze the data.
+
+## Requirements
+- Titanium Mobile SDK 7.0.0.GA or later
+
+## Building
+
+Run  from the project root directory
+>`./gradlew tiBuild`
+
+**Important:** module dependencies are not included in this repository. Command above will download them for you.
+
+If for some reasons you want to build this module using only `appc` or `titanium` cli commands, you should download exoplayer libraries (or build them locally) and put into `app/libs` (or `android/lib` which is symlink). After that you should run:
+
+>`appc run -p android --build-only`
+
+or
+
+>`ti build -p android --build-only`
+
+from the `android` directory
+
+## Install
+
+To use your module locally inside an app you can copy the zip file into the app root folder and compile your app.
+The file will automatically be extracted and copied into the correct `modules/` folder.
+
+## Project Usage
+
+Add the module as a dependency to your application by editing `tiapp.xml`.
+Example:
+
+    <modules>
+      <module version="1.0.0">ru.netris.mobile.appcenter</module>
+    </modules>
+
+When you run your project, the compiler will combine module along with its dependencies
+and assets into the application.
+
+### Start modules on application create
+
+To start `Crashes` module on start edit your `tiapp.xml` and add property to `ti:app` tag:
+
+    <property name="ti.appcenter.crashes.start-on-create">true</property>
+
+To start `Analytics` module on start edit your `tiapp.xml` and add property to `ti:app` tag:
+
+    <property name="ti.appcenter.analytics.start-on-create">true</property>
+
+You must also define `"ti.appcenter.secret.android"` property to be able to run `Crashes` and/or `Analytics` modules on application create:
+
+    <property name="ti.appcenter.secret.android">{YOUR_APP_SECRET}</property>
+
+### Manual modules start
+
+If you need to not start modules on application create you can start them manually later with:
+```js
+const {Crashes, Analytics} = require('ru.netris.mobile.appcenter');
+const secret = "YOUR_APP_SECRET"
+Crashes.start(secret);
+// you can't call `start` more then once
+// Analytics.start(secret);
+```
+
+## Example Usage
+
+```js
+const {Crashes, Analytics} = require('ru.netris.mobile.appcenter');
+const secret = "YOUR_APP_SECRET"
+
+Analytics.start(secret);
+
+Analytics.trackEvent('Video clicked', { Category: 'Music', FileName: 'favorite.avi' }, function(result) {
+    console.log(JSON.stringify(result));
+  });
+```

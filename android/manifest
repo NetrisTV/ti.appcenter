@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86
+description: Visual Studio App Center SDK for Axway Titanium
+author: Sergey Volkov <s.volkov@netris.ru>
+license: Apache 2.0
+copyright: Copyright (c) 2018 by Netris, CJSC
+
+# these should not be edited
+name: ti.appcenter
+moduleid: ru.netris.mobile.appcenter
+guid: b9eab43a-1867-45ef-b6f6-46db26f0c6ef
+platform: android
+minsdk: 7.0.0.GA
