@@ -62,20 +62,33 @@ You must also define `"ti.appcenter.secret.android"` property to be able to run 
 
 If you need to not start modules on application create you can start them manually later with:
 ```js
-const {Crashes, Analytics} = require('ru.netris.mobile.appcenter');
+const AppCenter = require('ru.netris.mobile.appcenter');
+const {Crashes, Analytics} = AppCenter;
 const secret = "YOUR_APP_SECRET"
-Crashes.start(secret);
-// you can't call `start` more then once
-// Analytics.start(secret);
+
+//  you can't call `start` more then once
+AppCenter.start(secret, Crashes, Analytics);
+
+//  when you defined "secret" in properties
+//AppCenter.start(Crashes, Analytics);
+
+//  when you need only one service
+//AppCenter.start(secret, Crashes);
+//  or
+//AppCenter.start(secret, Analytics);
+//  or
+//AppCenter.start(Analytics);
+
 ```
 
 ## Example Usage
 
 ```js
-const {Crashes, Analytics} = require('ru.netris.mobile.appcenter');
+const AppCenter = require('ru.netris.mobile.appcenter');
+const {Analytics} = AppCenter;
 const secret = "YOUR_APP_SECRET"
 
-Analytics.start(secret);
+AppCenter.start(secret, Analytics);
 
 Analytics.trackEvent('Video clicked', { Category: 'Music', FileName: 'favorite.avi' }, function(result) {
     console.log(JSON.stringify(result));

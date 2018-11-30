@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.netris.mobile.appcenter.TiAppcenterModule;
+import ru.netris.mobile.appcenter.crashes.TiAppCenterCrashesModule;
 import ru.netris.mobile.appcenter.utils.TiAppCenterUtils;
 
 import static com.microsoft.appcenter.analytics.Analytics.LOG_TAG;
@@ -23,29 +24,27 @@ import static com.microsoft.appcenter.analytics.Analytics.LOG_TAG;
 @Kroll.module(name = "Analytics")
 public class TiAppCenterAnalyticsModule extends KrollModule
 {
+	private static TiAppCenterAnalyticsModule instance;
 
 	private Map<String, AnalyticsTransmissionTarget> mTransmissionTargets = new HashMap<>();
 
 	public TiAppCenterAnalyticsModule()
 	{
 		super();
+		instance = this;
+	}
+
+	public static TiAppCenterAnalyticsModule getInstance()
+	{
+		return instance;
 	}
 
 	// Methods
-	@Kroll.method
-	public void start(String secret)
-	{
-		if (TiAppcenterModule.isStarted()) {
-			return;
-		}
-		TiAppcenterModule.startAnalytics(secret);
-	}
-
 	@Override
 	@Kroll.method
 	public String getApiName()
 	{
-		return "TitaniumAppCenterAnalytics";
+		return "TiAppCenterAnalytics";
 	}
 
 	@Kroll.method

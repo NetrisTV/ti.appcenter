@@ -61,19 +61,10 @@ public class TiAppCenterCrashesModule extends KrollModule
 
 	// Methods
 	@Kroll.method
-	public void start(String secret)
-	{
-		if (TiAppcenterModule.isStarted()) {
-			return;
-		}
-		TiAppcenterModule.startCrashes(secret);
-	}
-
-	@Kroll.method
 	@Override
 	public String getApiName()
 	{
-		return "TitaniumAppCenterCrashes";
+		return "TiAppCenterCrashes";
 	}
 
 	@Kroll.method
