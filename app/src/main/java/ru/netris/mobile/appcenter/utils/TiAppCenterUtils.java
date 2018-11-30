@@ -100,7 +100,8 @@ public class TiAppCenterUtils
 		}
 	}
 
-	public static Map<String, String> convertReadableMapToStringMap(KrollDict map) throws JSONException {
+	public static Map<String, String> convertReadableMapToStringMap(KrollDict map) throws JSONException
+	{
 		Map<String, String> stringMap = new HashMap<>();
 		for (String key : map.keySet()) {
 			Object value = map.get(key);

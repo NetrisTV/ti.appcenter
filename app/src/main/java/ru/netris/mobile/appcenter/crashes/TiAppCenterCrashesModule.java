@@ -84,10 +84,9 @@ public class TiAppCenterCrashesModule extends KrollModule
 			@Override
 			public void accept(ErrorReport errorReport)
 			{
-				Object[] args =
-					new Object[] { errorReport != null
-									   ? TiAppCenterUtils.convertErrorReportToWritableMapOrEmpty(errorReport)
-									   : null };
+				Object[] args = new Object[] {
+					errorReport != null ? TiAppCenterUtils.convertErrorReportToWritableMapOrEmpty(errorReport) : null
+				};
 				callback.call(getKrollObject(), args);
 			}
 		});
@@ -184,8 +183,8 @@ public class TiAppCenterCrashesModule extends KrollModule
 				@Override
 				public void accept(Collection<ErrorReport> errorReports)
 				{
-					Object[] args = new Object[] { TiAppCenterUtils.convertErrorReportsToWritableArrayOrEmpty(
-						errorReports) };
+					Object[] args =
+						new Object[] { TiAppCenterUtils.convertErrorReportsToWritableArrayOrEmpty(errorReports) };
 					callback.call(getKrollObject(), args);
 				}
 			});
