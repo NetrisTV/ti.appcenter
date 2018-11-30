@@ -10,8 +10,8 @@ import com.microsoft.appcenter.crashes.model.ErrorReport;
 import com.microsoft.appcenter.utils.async.AppCenterConsumer;
 
 import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollModule;
+import org.appcelerator.kroll.KrollPromise;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.util.TiConvert;
 
@@ -77,65 +77,60 @@ public class TiAppCenterCrashesModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void lastSessionCrashReport(final KrollFunction callback)
+	public void lastSessionCrashReport(final KrollPromise promise)
 	{
 		Crashes.getLastSessionCrashReport().thenAccept(new AppCenterConsumer<ErrorReport>() {
 
 			@Override
 			public void accept(ErrorReport errorReport)
 			{
-				Object[] args = new Object[] {
-					errorReport != null ? TiAppCenterUtils.convertErrorReportToWritableMapOrEmpty(errorReport) : null
-				};
-				callback.call(getKrollObject(), args);
+				promise.resolve(
+					errorReport != null ? TiAppCenterUtils.convertErrorReportToWritableMapOrEmpty(errorReport) : null);
 			}
 		});
 	}
 
 	@Kroll.method
-	public void hasCrashedInLastSession(final KrollFunction callback)
+	public void hasCrashedInLastSession(final KrollPromise promise)
 	{
 		Crashes.hasCrashedInLastSession().thenAccept(new AppCenterConsumer<Boolean>() {
 
 			@Override
 			public void accept(Boolean hasCrashed)
 			{
-				Object[] args = new Object[] { hasCrashed };
-				callback.call(getKrollObject(), args);
+				promise.resolve(hasCrashed);
 			}
 		});
 	}
 
 	@Kroll.method
-	public void setEnabled(boolean enabled, final KrollFunction callback)
+	public void setEnabled(boolean enabled, final KrollPromise promise)
 	{
 		Crashes.setEnabled(enabled).thenAccept(new AppCenterConsumer<Void>() {
 
 			@Override
 			public void accept(Void result)
 			{
-				Object[] args = new Object[] { result };
-				callback.call(getKrollObject(), args);
+				promise.resolve(result);
 			}
 		});
 	}
 
 	@Kroll.method
-	public void isEnabled(final KrollFunction callback)
+	public void isEnabled(final KrollPromise promise)
 	{
 		Crashes.isEnabled().thenAccept(new AppCenterConsumer<Boolean>() {
 
 			@Override
 			public void accept(Boolean enabled)
 			{
-				Object[] args = new Object[] { enabled };
-				callback.call(getKrollObject(), args);
+				promise.resolve(enabled);
 			}
 		});
 	}
 
 	@Kroll.method
-	public void generateTestCrash(final KrollFunction callback)
+	public void generateTestCrash(final KrollPromise promise)
 	{
 		new Thread(new Runnable() {
 
@@ -143,8 +138,7 @@ public class TiAppCenterCrashesModule extends KrollModule
 			public void run()
 			{
 				Crashes.generateTestCrash();
-				Object[] args = new Object[] { null };
-				callback.call(getKrollObject(), args);
+				promise.resolve(null);
 			}
 		})
 			.start();
@@ -175,7 +169,7 @@ public class TiAppCenterCrashesModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void getUnprocessedCrashReports(final KrollFunction callback)
+	public void getUnprocessedCrashReports(final KrollPromise promise)
 	{
 		WrapperSdkExceptionManager.getUnprocessedErrorReports().thenAccept(
 			new AppCenterConsumer<Collection<ErrorReport>>() {
@@ -183,16 +177,14 @@ public class TiAppCenterCrashesModule extends KrollModule
 				@Override
 				public void accept(Collection<ErrorReport> errorReports)
 				{
-					Object[] args =
-						new Object[] { TiAppCenterUtils.convertErrorReportsToWritableArrayOrEmpty(errorReports) };
-					callback.call(getKrollObject(), args);
+					promise.resolve(TiAppCenterUtils.convertErrorReportsToWritableArrayOrEmpty(errorReports));
 				}
 			});
 	}
 
 	@Kroll.method
 	public void sendCrashReportsOrAwaitUserConfirmationForFilteredIds(Object[] filteredReportIds,
-																	  final KrollFunction callback)
+																	  final KrollPromise promise)
 	{
 		int size = filteredReportIds.length;
 		Collection<String> filteredReportIdsAsList = new ArrayList<>(size);
@@ -205,8 +197,7 @@ public class TiAppCenterCrashesModule extends KrollModule
 				@Override
 				public void accept(Boolean alwaysSend)
 				{
-					Object[] args = new Object[] { alwaysSend };
-					callback.call(getKrollObject(), args);
+					promise.resolve(alwaysSend);
 				}
 			});
 	}
