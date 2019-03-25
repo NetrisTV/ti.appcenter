@@ -12,7 +12,9 @@ App Center Analytics helps you understand user behavior and customer engagement 
 
 ## Building
 
-Run  from the project root directory
+### Android
+
+Run from the `android` directory
 >`./gradlew tiBuild`
 
 **Important:** module dependencies are not included in this repository. Command above will download them for you.
