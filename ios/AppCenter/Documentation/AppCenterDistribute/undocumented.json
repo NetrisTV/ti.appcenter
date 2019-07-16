@@ -1,0 +1,26 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterDistribute.framework/Headers/MSDistributeDelegate.h",
+      "line": 8,
+      "symbol": "MSDistributeDelegate",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterDistribute.framework/Headers/MSDistributeDelegate.h",
+      "line": 10,
+      "symbol": "MSUpdateAction",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterDistribute.framework/Headers/MSDistributeDelegate.h",
+      "line": 10,
+      "symbol": "MSUpdateAction",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.typedef",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/vsts/agent/2.152.1/work/1/s/Scripts"
+}

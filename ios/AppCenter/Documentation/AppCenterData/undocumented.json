@@ -1,0 +1,208 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 12,
+      "symbol": "kMSACErrorDomain",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 17,
+      "symbol": "",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 20,
+      "symbol": "kMSACLogInvalidContainerErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 21,
+      "symbol": "kMSACCanceledErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 22,
+      "symbol": "kMSACDisabledErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 27,
+      "symbol": "",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 30,
+      "symbol": "kMSACConnectionHttpErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 31,
+      "symbol": "kMSACConnectionPausedErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSAppCenterErrors.h",
+      "line": 34,
+      "symbol": "kMSACConnectionHttpCodeErrorKey",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSBaseOptions.h",
+      "line": 6,
+      "symbol": "MSBaseOptions",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSData.h",
+      "line": 49,
+      "symbol": "MSData",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSData.h",
+      "line": 51,
+      "symbol": "MSDocumentWrapperCompletionHandler",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.typedef",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSData.h",
+      "line": 52,
+      "symbol": "MSPaginatedDocumentsCompletionHandler",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.typedef",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataError.h",
+      "line": 8,
+      "symbol": "MSDataError",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 12,
+      "symbol": "kMSACDataErrorDomain",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 17,
+      "symbol": "MSACDataError",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 17,
+      "symbol": "MSACDataError",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.typedef",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 37,
+      "symbol": "kMSACDataInvalidClassDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 38,
+      "symbol": "kMSACDataCosmosDbErrorResponseDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 39,
+      "symbol": "kMSACDocumentCreationDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDataErrors.h",
+      "line": 40,
+      "symbol": "kMSACDataErrorDocumentIdInvalidDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDictionaryDocument.h",
+      "line": 6,
+      "symbol": "MSDictionaryDocument",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSDocumentWrapper.h",
+      "line": 8,
+      "symbol": "MSDocumentWrapper",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSPage.h",
+      "line": 8,
+      "symbol": "MSPage",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSPaginatedDocuments.h",
+      "line": 11,
+      "symbol": "MSPaginatedDocuments",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSReadOptions.h",
+      "line": 6,
+      "symbol": "MSReadOptions",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSRemoteOperationDelegate.h",
+      "line": 11,
+      "symbol": "MSRemoteOperationDelegate",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSSerializableDocument.h",
+      "line": 8,
+      "symbol": "MSSerializableDocument",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterData.framework/Headers/MSWriteOptions.h",
+      "line": 6,
+      "symbol": "MSWriteOptions",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/vsts/agent/2.152.1/work/1/s/Scripts"
+}

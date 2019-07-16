@@ -1,0 +1,124 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 12,
+      "symbol": "kMSACErrorDomain",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 17,
+      "symbol": "",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 20,
+      "symbol": "kMSACLogInvalidContainerErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 21,
+      "symbol": "kMSACCanceledErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 22,
+      "symbol": "kMSACDisabledErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 27,
+      "symbol": "",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 30,
+      "symbol": "kMSACConnectionHttpErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 31,
+      "symbol": "kMSACConnectionPausedErrorDesc",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAppCenterErrors.h",
+      "line": 34,
+      "symbol": "kMSACConnectionHttpCodeErrorKey",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.constant",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 25,
+      "symbol": "MSACAuthError.MSACAuthErrorServiceDisabled",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 28,
+      "symbol": "MSACAuthError.MSACAuthErrorPreviousSignInRequestInProgress",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 29,
+      "symbol": "MSACAuthError.MSACAuthErrorInterruptedByAnotherOperation",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 30,
+      "symbol": "MSACAuthError.MSACAuthErrorSignInNotConfigured",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 31,
+      "symbol": "MSACAuthError.MSACAuthErrorSignInConfigNotValid",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 32,
+      "symbol": "MSACAuthError.MSACAuthErrorSignInDownloadConfigFailed",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSAuthErrors.h",
+      "line": 35,
+      "symbol": "MSACAuthError.MSACAuthErrorNoConnection",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.enumcase",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vsts/agent/2.152.1/work/1/s/AppCenter-SDK-Apple/iOS/AppCenterAuth.framework/Headers/MSUserInformation.h",
+      "line": 8,
+      "symbol": "MSUserInformation",
+      "symbol_kind": "sourcekitten.source.lang.objc.decl.class",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/vsts/agent/2.152.1/work/1/s/Scripts"
+}
