@@ -19,4 +19,8 @@
 - (void)generateTestCrash:(id)arguments;
 - (void)notifyWithUserConfirmation:(id)arguments;
 
+@property (nonatomic, readonly) NSString *DONT_SEND;
+@property (nonatomic, readonly) NSString *SEND;
+@property (nonatomic, readonly) NSString *ALWAYS_SEND;
+
 @end

@@ -112,6 +112,22 @@ NSString *const Tag = @"TiAppCenterModule";
   }
 }
 
+- (RuNetrisMobileAppcenterCrashesProxy *)Crashes
+{
+  if (crashes == nil) {
+    crashes = [[RuNetrisMobileAppcenterCrashesProxy alloc] _initWithPageContext:[self executionContext]];
+  }
+  return crashes;
+}
+
+- (RuNetrisMobileAppcenterAnalyticsProxy *)Analytics
+{
+  if (analytics == nil) {
+    analytics = [[RuNetrisMobileAppcenterAnalyticsProxy alloc] _initWithPageContext:[self executionContext]];
+  }
+  return analytics;
+}
+
 - (NSString *)getApiName
 {
   return Tag;

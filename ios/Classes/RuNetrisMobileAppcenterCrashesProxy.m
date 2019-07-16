@@ -83,15 +83,18 @@ static NSString *const Tag = @"TiAppCenterCrashes";
 
   NSString *value = [TiUtils stringValue:args[0]];
 
-  if ([value isEqual:@"always"]) {
+  if ([value isEqual:self.ALWAYS_SEND]) {
     [MSCrashes notifyWithUserConfirmation:MSUserConfirmationAlways];
-  } else if ([value isEqual:@"send"]) {
+  } else if ([value isEqual:self.SEND]) {
     [MSCrashes notifyWithUserConfirmation:MSUserConfirmationSend];
-  } else if ([value isEqual:@"dontsend"]) {
+  } else if ([value isEqual:self.DONT_SEND]) {
     [MSCrashes notifyWithUserConfirmation:MSUserConfirmationDontSend];
   } else {
     NSLog([Tag stringByAppendingString:@": A wrong value passed to notifyWithUserConfirmation()"]);
   }
 }
 
+MAKE_SYSTEM_STR(DONT_SEND, @"dontsend");
+MAKE_SYSTEM_STR(SEND, @"send");
+MAKE_SYSTEM_STR(ALWAYS_SEND, @"always");
 @end
