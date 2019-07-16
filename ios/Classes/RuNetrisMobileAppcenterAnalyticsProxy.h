@@ -5,12 +5,11 @@
 //  Created by Emin Alekperov on 02/04/2019.
 //
 
-#import <Foundation/Foundation.h>
-#import "TiProxy.h"
 #import "KrollCallback.h"
+#import "TiProxy.h"
+#import <Foundation/Foundation.h>
 
 @interface RuNetrisMobileAppcenterAnalyticsProxy : TiProxy {
-
 }
 
 - (NSString *)getApiName;

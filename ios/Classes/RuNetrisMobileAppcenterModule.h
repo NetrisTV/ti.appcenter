@@ -5,11 +5,11 @@
  * Copyright (c) 2019 Your Company. All rights reserved.
  */
 
-#import <Foundation/Foundation.h>
 #import "TiModule.h"
+#import <Foundation/Foundation.h>
 
 @interface RuNetrisMobileAppcenterModule : TiModule {
-    BOOL isStarted;
+  BOOL isStarted;
 }
 
 @property (readonly, assign) BOOL isStarted;
