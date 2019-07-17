@@ -1,39 +1,126 @@
-// This is a test harness for your module
-// You should do something interesting in this harness
-// to test out the module and to provide instructions
-// to users on how to use it by example.
+const AppCenter = require('ru.netris.mobile.appcenter');
+const {Crashes, Analytics} = AppCenter;
 
-
-// open a single window
-var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+const win = Ti.UI.createWindow({
+	title: 'appcenter test',
+	layout: 'vertical',
+	backgroundColor: '#fff'
 });
-var label = Ti.UI.createLabel();
-win.add(label);
-win.open();
 
-// TODO: write your module tests here
-var ti_appcenter = require('ru.netris.mobile.appcenter');
-Ti.API.info("module is => " + ti_appcenter);
-
-label.text = ti_appcenter.example();
-
-Ti.API.info("module exampleProp is => " + ti_appcenter.exampleProp);
-ti_appcenter.exampleProp = "This is a test value";
-
-if (Ti.Platform.name == "android") {
-	var proxy = ti_appcenter.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
+const btn1 = Ti.UI.createButton({
+	top: 20,
+	title: 'generate test crash'
+});
+btn1.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Crashes.generateTestCrash(result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
 	});
+});
+win.add(btn1);
 
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
-}
+const btn2 = Ti.UI.createButton({
+	title: 'is "Crashes" enabled'
+});
+btn2.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Crashes.isEnabled(result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn2);
 
+const btn3 = Ti.UI.createButton({
+	title: 'enable "Crashes"'
+});
+btn3.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Crashes.setEnabled(true, result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn3);
+
+const btn4 = Ti.UI.createButton({
+	title: 'disable "Crashes"'
+});
+btn4.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Crashes.setEnabled(false, result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn4);
+
+let btn5 = Ti.UI.createButton({
+	title: 'get Unprocessed Crash Reports'
+});
+btn5.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Crashes.getUnprocessedCrashReports(result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn5);
+
+const btn6 = Ti.UI.createButton({
+	title: 'is "Analytics" enabled'
+});
+btn6.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Analytics.isEnabled(result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn6);
+
+const btn7 = Ti.UI.createButton({
+	title: 'enable "Analytics"'
+});
+btn7.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Analytics.setEnabled(true, result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn7);
+
+const btn8 = Ti.UI.createButton({
+	title: 'disable "Analytics"'
+});
+btn8.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Analytics.setEnabled(false, result => {
+		alert(`${title}: ${JSON.stringify(result)}`);
+	});
+});
+win.add(btn8);
+
+let btn9 = Ti.UI.createButton({
+	title: 'track event'
+});
+btn9.addEventListener('click', event => {
+	const title = event.source.title;
+	console.log(`${event.type}: ${title}`);
+	Analytics.isEnabled(result => {
+		alert(`Analytics.isEnabled: ${result}`);
+		if (result) {
+			Analytics.trackEvent('Video clicked', {
+				Category: 'Music',
+				FileName: 'favorite.avi'
+			}, result => {
+				alert(`${title}: ${JSON.stringify(result)}`);
+			});
+		}
+	});
+});
+win.add(btn9);
+win.open();

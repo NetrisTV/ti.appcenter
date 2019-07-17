@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+	<property name="ti.appcenter.crashes.start-on-create">true</property>
+	<property name="ti.appcenter.analytics.start-on-create">true</property>
+	<property name="ti.appcenter.secret.android">YOUR_ANDROID_SECRET</property>
+	<property name="ti.appcenter.secret.ios">YOUR_IOS_SECRET</property>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+		<manifest>
+			<!-- Crashes.generateTestCrash(); can only be used in debug builds and won't do anything in release builds. -->
+			<application android:debuggable="true"/>
+		</manifest>
+	</android>
+	<modules>
+		<module>ru.netris.mobile.appcenter</module>
+	</modules>
+</ti:app>
