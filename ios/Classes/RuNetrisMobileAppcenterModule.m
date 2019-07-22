@@ -42,11 +42,11 @@ NSString *const Tag = @"TiAppCenterModule";
 - (void)startup {
   [super startup];
 
+  services = [NSMutableArray new];
+    
   NSDictionary *properties = [TiApp tiAppProperties];
 
-  NSString *secret = [TiUtils stringValue:[properties objectForKey:PropertySecret]];
-
-  NSMutableArray<Class> *services = [NSMutableArray new];
+  secret = [TiUtils stringValue:[properties objectForKey:PropertySecret]];
 
   if ([TiUtils boolValue:[properties objectForKey:PropertyStartAnalyticsOnCreate]]) {
     [services addObject:MSAnalytics.self];

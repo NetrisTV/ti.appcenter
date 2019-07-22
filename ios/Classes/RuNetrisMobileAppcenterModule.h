@@ -15,6 +15,8 @@
   RuNetrisMobileAppcenterCrashesProxy *crashes;
   RuNetrisMobileAppcenterAnalyticsProxy *analytics;
   BOOL isStarted;
+  NSString *secret;
+  NSMutableArray<Class> *services;
 }
 
 @property (readonly, assign) BOOL isStarted;
