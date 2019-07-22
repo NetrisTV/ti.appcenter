@@ -39,6 +39,8 @@
 		F923E4BE225CFF84000BE7E9 /* RuNetrisMobileAppcenterAnalyticsProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = F923E4BC225CFF84000BE7E9 /* RuNetrisMobileAppcenterAnalyticsProxy.m */; };
 		F92850C92254D51100B41342 /* RuNetrisMobileAppcenterModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* RuNetrisMobileAppcenterModuleAssets.h */; };
 		F92850CA2254D51500B41342 /* RuNetrisMobileAppcenterModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* RuNetrisMobileAppcenterModule.h */; };
+		F92DF42B22E6202300678B6D /* TiAppCenterUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F92DF42A22E6202300678B6D /* TiAppCenterUtils.h */; };
+		F92DF42D22E6205500678B6D /* TiAppCenterUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F92DF42C22E6205500678B6D /* TiAppCenterUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		F923E4B8225CFF68000BE7E9 /* RuNetrisMobileAppcenterCrashesProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RuNetrisMobileAppcenterCrashesProxy.m; path = Classes/RuNetrisMobileAppcenterCrashesProxy.m; sourceTree = "<group>"; };
 		F923E4BB225CFF84000BE7E9 /* RuNetrisMobileAppcenterAnalyticsProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RuNetrisMobileAppcenterAnalyticsProxy.h; path = Classes/RuNetrisMobileAppcenterAnalyticsProxy.h; sourceTree = "<group>"; };
 		F923E4BC225CFF84000BE7E9 /* RuNetrisMobileAppcenterAnalyticsProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RuNetrisMobileAppcenterAnalyticsProxy.m; path = Classes/RuNetrisMobileAppcenterAnalyticsProxy.m; sourceTree = "<group>"; };
+		F92DF42A22E6202300678B6D /* TiAppCenterUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiAppCenterUtils.h; path = Classes/TiAppCenterUtils.h; sourceTree = "<group>"; };
+		F92DF42C22E6205500678B6D /* TiAppCenterUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiAppCenterUtils.m; path = Classes/TiAppCenterUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F92DF42922E61EFA00678B6D /* Utils */,
 				F925B4DB2257C00B00C54DBD /* Crashes */,
 				F925B4DA2257BFE300C54DBD /* Analytics */,
 				24DE9E0F11C5FE74003F90F6 /* RuNetrisMobileAppcenterModuleAssets.h */,
@@ -168,6 +173,15 @@
 			name = Crashes;
 			sourceTree = "<group>";
 		};
+		F92DF42922E61EFA00678B6D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F92DF42A22E6202300678B6D /* TiAppCenterUtils.h */,
+				F92DF42C22E6205500678B6D /* TiAppCenterUtils.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -177,6 +191,7 @@
 			files = (
 				F92850CA2254D51500B41342 /* RuNetrisMobileAppcenterModule.h in Headers */,
 				F92850C92254D51100B41342 /* RuNetrisMobileAppcenterModuleAssets.h in Headers */,
+				F92DF42B22E6202300678B6D /* TiAppCenterUtils.h in Headers */,
 				F923E4B9225CFF68000BE7E9 /* RuNetrisMobileAppcenterCrashesProxy.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* TiAppCenter_Prefix.pch in Headers */,
 				F923E4BD225CFF84000BE7E9 /* RuNetrisMobileAppcenterAnalyticsProxy.h in Headers */,
@@ -257,6 +272,7 @@
 				24DD6CFA1134B3F500162E58 /* RuNetrisMobileAppcenterModule.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* RuNetrisMobileAppcenterModuleAssets.m in Sources */,
 				F923E4BA225CFF68000BE7E9 /* RuNetrisMobileAppcenterCrashesProxy.m in Sources */,
+				F92DF42D22E6205500678B6D /* TiAppCenterUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

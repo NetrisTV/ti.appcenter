@@ -12,10 +12,10 @@
 }
 
 - (NSString *)getApiName;
-- (id)lastSessionCrashReport:(id)arguments;
-- (id)hasCrashedInLastSession:(id)arguments;
+- (void)lastSessionCrashReport:(id)arguments;
+- (void)hasCrashedInLastSession:(id)arguments;
 - (void)setEnabled:(id)arguments;
-- (id)isEnabled:(id)arguments;
+- (void)isEnabled:(id)arguments;
 - (void)generateTestCrash:(id)arguments;
 - (void)notifyWithUserConfirmation:(id)arguments;
 

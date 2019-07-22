@@ -28,21 +28,18 @@ NSString *const Tag = @"TiAppCenterModule";
 #pragma mark Internal
 
 // This is generated for your module, please do not change it
-- (id)moduleGUID
-{
+- (id)moduleGUID {
   return @"0443bb65-2ff4-47a3-b9b0-e09f3b41b542";
 }
 
 // This is generated for your module, please do not change it
-- (NSString *)moduleId
-{
+- (NSString *)moduleId {
   return @"ru.netris.mobile.appcenter";
 }
 
 #pragma mark Lifecycle
 
-- (void)startup
-{
+- (void)startup {
   [super startup];
 
   NSDictionary *properties = [TiApp tiAppProperties];
@@ -68,8 +65,7 @@ NSString *const Tag = @"TiAppCenterModule";
 
 #pragma Public APIs
 
-- (void)start:(id)arguments
-{
+- (void)start:(id)arguments {
   if (isStarted) {
     return;
   }
@@ -112,25 +108,42 @@ NSString *const Tag = @"TiAppCenterModule";
   }
 }
 
-- (RuNetrisMobileAppcenterCrashesProxy *)Crashes
-{
+- (RuNetrisMobileAppcenterCrashesProxy *)Crashes {
   if (crashes == nil) {
     crashes = [[RuNetrisMobileAppcenterCrashesProxy alloc] _initWithPageContext:[self executionContext]];
   }
   return crashes;
 }
 
-- (RuNetrisMobileAppcenterAnalyticsProxy *)Analytics
-{
+- (RuNetrisMobileAppcenterAnalyticsProxy *)Analytics {
   if (analytics == nil) {
     analytics = [[RuNetrisMobileAppcenterAnalyticsProxy alloc] _initWithPageContext:[self executionContext]];
   }
   return analytics;
 }
 
-- (NSString *)getApiName
-{
+- (NSString *)getApiName {
   return Tag;
+}
+
+#pragma Private methods
+
+- (BOOL)startModule {
+  if (secret == nil) {
+    NSLog([Tag stringByAppendingString:@": No secret key"]);
+    return FALSE;
+  }
+
+  if (services.count == 0) {
+    NSLog([Tag stringByAppendingString:@": No services"]);
+    return FALSE;
+  }
+
+  [MSAppCenter start:secret withServices:services];
+
+  isStarted = TRUE;
+
+  return TRUE;
 }
 
 @end

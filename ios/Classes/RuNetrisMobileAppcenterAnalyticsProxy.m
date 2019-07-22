@@ -7,6 +7,7 @@
 
 #import "RuNetrisMobileAppcenterAnalyticsProxy.h"
 #import "AppCenterAnalytics/AppCenterAnalytics.h"
+#import "TiAppCenterUtils.h"
 #import "TiUtils.h"
 
 static NSString *const Tag = @"TiAppCenterAnalytics";
@@ -15,8 +16,7 @@ static NSString *const Tag = @"TiAppCenterAnalytics";
 
 NSMutableDictionary *mTransmissionTargets;
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     mTransmissionTargets = [[NSMutableDictionary alloc] init];
   }
@@ -24,13 +24,11 @@ NSMutableDictionary *mTransmissionTargets;
   return self;
 }
 
-- (NSString *)getApiName
-{
+- (NSString *)getApiName {
   return Tag;
 }
 
-- (void)setEnabled:(id)arguments
-{
+- (void)setEnabled:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setEnabled()"]);
     return;
@@ -43,16 +41,36 @@ NSMutableDictionary *mTransmissionTargets;
     return;
   }
 
-  [MSAnalytics setEnabled:[TiUtils boolValue:[args objectAtIndex:0]]];
+  BOOL value = [TiUtils boolValue:[args objectAtIndex:0]];
+
+  [MSAnalytics setEnabled:value];
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(value)] thisObject:nil];
+  }
 }
 
-- (void)isEnabled:(id)arguments
-{
-  return MSAnalytics.isEnabled;
+- (void)isEnabled:(id)arguments {
+  if (arguments == nil) {
+    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isEnabled()"]);
+    return;
+  }
+
+  NSArray *args = (NSArray *)arguments;
+
+  if (args.count != 1) {
+    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isEnabled()"]);
+    return;
+  }
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)args atIndex:0];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(MSAnalytics.isEnabled)] thisObject:nil];
+  }
 }
 
-- (void)trackEvent:(id)arguments
-{
+- (void)trackEvent:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackEvent()"]);
     return;
@@ -75,23 +93,15 @@ NSMutableDictionary *mTransmissionTargets;
     }
   }
 
-  KrollCallback *callback;
-  if (args.count > 2) {
-    NSObject *item = [args objectAtIndex:2];
-    if ([item isKindOfClass:[KrollCallback class]]) {
-      callback = (KrollCallback *)item;
-    }
-  }
-
   [MSAnalytics trackEvent:eventName withProperties:properties];
 
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2 for:[Tag stringByAppendingString:@": trackEvent()"]];
   if (callback != nil) {
     [callback call:nil thisObject:Tag];
   }
 }
 
-- (void)trackTransmissionTargetEvent:(id)arguments
-{
+- (void)trackTransmissionTargetEvent:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackTransmissionTargetEvent()"]);
     return;
@@ -124,26 +134,18 @@ NSMutableDictionary *mTransmissionTargets;
     }
   }
 
-  KrollCallback *callback;
-  if (args.count > 3) {
-    item = [args objectAtIndex:3];
-    if ([item isKindOfClass:[KrollCallback class]]) {
-      callback = (KrollCallback *)item;
-    }
-  }
-
   MSAnalyticsTransmissionTarget *transmissionTarget = (MSAnalyticsTransmissionTarget *)[mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     [transmissionTarget trackEvent:eventName withProperties:properties];
   }
 
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:3];
   if (callback != nil) {
     [callback call:nil thisObject:Tag];
   }
 }
 
-- (void)getTransmissionTarget:(id)arguments
-{
+- (void)getTransmissionTarget:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getTransmissionTarget()"]);
     return;
@@ -157,7 +159,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:1];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to getTransmissionTarget()"]);
@@ -174,8 +176,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 }
 
-- (void)isTransmissionTargetEnabled:(id)arguments
-{
+- (void)isTransmissionTargetEnabled:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isTransmissionTargetEnabled()"]);
     return;
@@ -189,7 +190,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:1];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to isTransmissionTargetEnabled()"]);
@@ -204,8 +205,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 }
 
-- (void)setTransmissionTargetEnabled:(id)arguments
-{
+- (void)setTransmissionTargetEnabled:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEnabled()"]);
     return;
@@ -220,7 +220,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   BOOL enabled = [TiUtils boolValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to setTransmissionTargetEnabled()"]);
@@ -237,8 +237,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 }
 
-- (void)setTransmissionTargetEventProperty:(id)arguments
-{
+- (void)setTransmissionTargetEventProperty:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEventProperty()"]);
     return;
@@ -254,7 +253,7 @@ NSMutableDictionary *mTransmissionTargets;
   NSString *propertyKey = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *propertyValue = [TiUtils stringValue:[args objectAtIndex:1]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:2]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:3];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:3];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to setTransmissionTargetEventProperty()"]);
@@ -270,8 +269,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:nil thisObject:Tag];
 }
 
-- (void)removeTransmissionTargetEventProperty:(id)arguments
-{
+- (void)removeTransmissionTargetEventProperty:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to removeTransmissionTargetEventProperty()"]);
     return;
@@ -286,7 +284,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   NSString *propertyKey = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to removeTransmissionTargetEventProperty()"]);
@@ -302,8 +300,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:nil thisObject:Tag];
 }
 
-- (void)collectTransmissionTargetDeviceId:(id)arguments
-{
+- (void)collectTransmissionTargetDeviceId:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to collectTransmissionTargetDeviceId()"]);
     return;
@@ -317,7 +314,7 @@ NSMutableDictionary *mTransmissionTargets;
   }
 
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:1];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to collectTransmissionTargetDeviceId()"]);
@@ -333,8 +330,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:nil thisObject:Tag];
 }
 
-- (void)getChildTransmissionTarget:(id)arguments
-{
+- (void)getChildTransmissionTarget:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getChildTransmissionTarget()"]);
     return;
@@ -349,7 +345,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   NSString *childToken = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   if (callback == nil) {
     NSLog([Tag stringByAppendingString:@": No callback passed to getChildTransmissionTarget()"]);
@@ -373,8 +369,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:[NSArray arrayWithObject:childToken] thisObject:Tag];
 }
 
-- (void)setTransmissionTargetAppName:(id)arguments
-{
+- (void)setTransmissionTargetAppName:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppName()"]);
     return;
@@ -389,7 +384,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   NSString *appName = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
@@ -400,8 +395,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:nil thisObject:Tag];
 }
 
-- (void)setTransmissionTargetAppVersion:(id)arguments
-{
+- (void)setTransmissionTargetAppVersion:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppVersion()"]);
     return;
@@ -416,7 +410,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   NSString *appVersion = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
@@ -427,8 +421,7 @@ NSMutableDictionary *mTransmissionTargets;
   [callback call:nil thisObject:Tag];
 }
 
-- (void)setTransmissionTargetAppLocale:(id)arguments
-{
+- (void)setTransmissionTargetAppLocale:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppLocale()"]);
     return;
@@ -443,7 +436,7 @@ NSMutableDictionary *mTransmissionTargets;
 
   NSString *appLocale = [TiUtils stringValue:[args objectAtIndex:0]];
   NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = (KrollCallback *)[args objectAtIndex:2];
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {

@@ -6,6 +6,7 @@
 //
 
 #import "RuNetrisMobileAppcenterCrashesProxy.h"
+#import "TiAppCenterUtils.h"
 #import "TiUtils.h"
 #import <AppCenterCrashes/MSCrashes.h>
 #import <Foundation/Foundation.h>
@@ -15,33 +16,50 @@ static NSString *const Tag = @"TiAppCenterCrashes";
 
 @implementation RuNetrisMobileAppcenterCrashesProxy
 
-- (NSString *)getApiName
-{
+- (NSString *)getApiName {
   return Tag;
 }
 
-- (id)lastSessionCrashReport:(id)arguments
-{
+- (void)lastSessionCrashReport:(id)arguments {
+  if (arguments == nil) {
+    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to lastSessionCrashReport()"]);
+    return;
+  }
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)arguments
+                                                  atIndex:0
+                                                      for:[Tag stringByAppendingString:@": lastSessionCrashReport()"]];
+
   MSErrorReport *report = [MSCrashes lastSessionCrashReport];
-  return @{
-    @"incidentIdentifier" : report.incidentIdentifier ?: @"",
-    @"reporterKey" : report.reporterKey ?: @"",
-    @"signal" : report.signal ?: @"",
-    @"exceptionName" : report.exceptionName ?: @"",
-    @"exceptionReason" : report.exceptionReason ?: @"",
-    @"appStartTime" : [NSNumber numberWithDouble:[report.appStartTime timeIntervalSince1970]] ?: 0,
-    @"appErrorTime" : [NSNumber numberWithDouble:[report.appErrorTime timeIntervalSince1970]] ?: 0,
-    @"appProcessIdentifier" : [NSNumber numberWithInteger:report.appProcessIdentifier] ?: 0
+  NSDictionary *result = @{
+      @"incidentIdentifier" : report.incidentIdentifier ?: @"",
+      @"reporterKey" : report.reporterKey ?: @"",
+      @"signal" : report.signal ?: @"",
+      @"exceptionName" : report.exceptionName ?: @"",
+      @"exceptionReason" : report.exceptionReason ?: @"",
+      @"appStartTime" : [NSNumber numberWithDouble:[report.appStartTime timeIntervalSince1970]] ?: 0,
+      @"appErrorTime" : [NSNumber numberWithDouble:[report.appErrorTime timeIntervalSince1970]] ?: 0,
+      @"appProcessIdentifier" : [NSNumber numberWithInteger:report.appProcessIdentifier] ?: 0
   };
+
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:result] thisObject:nil];
+  }
 }
 
-- (id)hasCrashedInLastSession:(id)arguments
-{
-  return NUMBOOL([MSCrashes hasCrashedInLastSession]);
+- (void)hasCrashedInLastSession:(id)arguments {
+  if (arguments == nil) {
+    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to hasCrashedInLastSession()"]);
+    return;
+  }
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)arguments atIndex:0 for:Tag];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:NUMBOOL([MSCrashes hasCrashedInLastSession])] thisObject:nil];
+  }
 }
 
-- (void)setEnabled:(id)arguments
-{
+- (void)setEnabled:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setEnabled()"]);
     return;
@@ -49,26 +67,38 @@ static NSString *const Tag = @"TiAppCenterCrashes";
 
   NSArray *args = (NSArray *)arguments;
 
-  if (args.count == 0) {
+  if (args.count == 0 || args.count > 2) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setEnabled()"]);
     return;
   }
 
-  [MSCrashes setEnabled:[TiUtils boolValue:[args objectAtIndex:0]]];
+  BOOL value = [TiUtils boolValue:[args objectAtIndex:0]];
+
+  [MSCrashes setEnabled:value];
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(value)] thisObject:nil];
+  }
 }
 
-- (id)isEnabled:(id)arguments
-{
-  return NUMBOOL(MSCrashes.isEnabled);
+- (void)isEnabled:(id)arguments {
+  if (arguments == nil) {
+    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isEnabled()"]);
+    return;
+  }
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)arguments atIndex:0 for:Tag];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(MSCrashes.isEnabled)] thisObject:nil];
+  }
 }
 
-- (void)generateTestCrash:(id)arguments
-{
+- (void)generateTestCrash:(id)arguments {
   [MSCrashes generateTestCrash];
 }
 
-- (void)notifyWithUserConfirmation:(id)arguments
-{
+- (void)notifyWithUserConfirmation:(id)arguments {
   if (arguments == nil) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to notifyWithUserConfirmation()"]);
     return;
@@ -76,7 +106,7 @@ static NSString *const Tag = @"TiAppCenterCrashes";
 
   NSArray *args = (NSArray *)arguments;
 
-  if (args.count == 0) {
+  if (args.count == 0 || args.count > 2) {
     NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to notifyWithUserConfirmation()"]);
     return;
   }
@@ -91,6 +121,11 @@ static NSString *const Tag = @"TiAppCenterCrashes";
     [MSCrashes notifyWithUserConfirmation:MSUserConfirmationDontSend];
   } else {
     NSLog([Tag stringByAppendingString:@": A wrong value passed to notifyWithUserConfirmation()"]);
+  }
+
+  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)args atIndex:1];
+  if (callback != nil) {
+    [callback callAsync:[NSArray arrayWithObject:value] thisObject:nil];
   }
 }
 
