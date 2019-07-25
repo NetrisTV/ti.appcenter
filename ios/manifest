@@ -2,17 +2,17 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.0
+version: 1.0.1
 apiversion: 2
 architectures: armv7 arm64 i386 x86_64
-description: ti.appcenter
-author: Your Name
-license: Specify your license
-copyright: Copyright (c) 2019 by Your Company
+description: Visual Studio App Center SDK for Axway Titanium
+author: Emin Alekperov <e.alekperov@netris.ru>
+license: Apache 2.0
+copyright: Copyright (c) 2019 by Netris, JSC
 
 # these should not be edited
 name: ti.appcenter
 moduleid: ru.netris.mobile.appcenter
 guid: 0443bb65-2ff4-47a3-b9b0-e09f3b41b542
 platform: iphone
-minsdk: 7.4.1.NETRIS-r2
+minsdk: 7.4.1.GA
