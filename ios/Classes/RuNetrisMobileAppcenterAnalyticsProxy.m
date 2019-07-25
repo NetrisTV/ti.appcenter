@@ -7,7 +7,6 @@
 
 #import "RuNetrisMobileAppcenterAnalyticsProxy.h"
 #import "AppCenterAnalytics/AppCenterAnalytics.h"
-#import "TiAppCenterUtils.h"
 #import "TiUtils.h"
 
 static NSString *const Tag = @"TiAppCenterAnalytics";
@@ -16,7 +15,8 @@ static NSString *const Tag = @"TiAppCenterAnalytics";
 
 NSMutableDictionary *mTransmissionTargets;
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     mTransmissionTargets = [[NSMutableDictionary alloc] init];
   }
@@ -24,427 +24,207 @@ NSMutableDictionary *mTransmissionTargets;
   return self;
 }
 
-- (NSString *)getApiName {
+- (NSString *)getApiName
+{
   return Tag;
 }
 
-- (void)setEnabled:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setEnabled()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count == 0) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setEnabled()"]);
-    return;
-  }
-
+- (void)setEnabled:(id)args
+{
+  KrollCallback *callback = nil;
+  ENSURE_ARG_AT_INDEX(callback, args, 1, KrollCallback);
   BOOL value = [TiUtils boolValue:[args objectAtIndex:0]];
 
   [MSAnalytics setEnabled:value];
 
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
-  if (callback != nil) {
-    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(value)] thisObject:nil];
-  }
+  [callback callAsync:[NSArray arrayWithObject:NUMBOOL(value)] thisObject:self];
 }
 
-- (void)isEnabled:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isEnabled()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count != 1) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isEnabled()"]);
-    return;
-  }
-
-  KrollCallback *callback = [TiAppCenterUtils getCallback:(NSArray *)args atIndex:0];
-  if (callback != nil) {
-    [callback callAsync:[NSArray arrayWithObject:NUMBOOL(MSAnalytics.isEnabled)] thisObject:nil];
-  }
+- (void)isEnabled:(id)args
+{
+  ENSURE_SINGLE_ARG(args, KrollCallback);
+  KrollCallback *callback = args;
+  [callback callAsync:[NSArray arrayWithObject:NUMBOOL(MSAnalytics.isEnabled)] thisObject:self];
 }
 
-- (void)trackEvent:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackEvent()"]);
-    return;
-  }
+- (void)trackEvent:(id)args
+{
+  NSString *eventName = nil;
+  NSDictionary *properties = nil;
 
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count == 0) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackEvent()"]);
-    return;
-  }
-
-  NSString *eventName = [TiUtils stringValue:[args objectAtIndex:0]];
-
-  NSDictionary *properties;
-  if (args.count > 1) {
-    NSObject *item = [args objectAtIndex:1];
-    if ([item isKindOfClass:[NSDictionary class]]) {
-      properties = (NSDictionary *)item;
-    }
-  }
+  ENSURE_ARG_AT_INDEX(eventName, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(properties, args, 1, NSDictionary);
 
   [MSAnalytics trackEvent:eventName withProperties:properties];
-
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2 for:[Tag stringByAppendingString:@": trackEvent()"]];
-  if (callback != nil) {
-    [callback call:nil thisObject:Tag];
-  }
 }
 
-- (void)trackTransmissionTargetEvent:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackTransmissionTargetEvent()"]);
-    return;
-  }
+- (void)trackTransmissionTargetEvent:(id)args
+{
+  NSString *eventName = nil;
+  NSDictionary *properties = nil;
+  NSString *targetToken = nil;
 
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count == 0) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to trackTransmissionTargetEvent()"]);
-    return;
-  }
-
-  NSString *eventName = [TiUtils stringValue:[args objectAtIndex:0]];
-
-  NSObject *item;
-
-  NSDictionary *properties;
-  if (args.count > 1) {
-    item = [args objectAtIndex:1];
-    if ([item isKindOfClass:[NSDictionary class]]) {
-      properties = (NSDictionary *)item;
-    }
-  }
-
-  NSString *targetToken = @"";
-  if (args.count > 2) {
-    item = [args objectAtIndex:2];
-    if ([item isKindOfClass:[NSString class]]) {
-      targetToken = (NSString *)item;
-    }
-  }
+  ENSURE_ARG_AT_INDEX(eventName, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(properties, args, 1, NSDictionary);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 2, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = (MSAnalyticsTransmissionTarget *)[mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     [transmissionTarget trackEvent:eventName withProperties:properties];
   }
-
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:3];
-  if (callback != nil) {
-    [callback call:nil thisObject:Tag];
-  }
 }
 
-- (void)getTransmissionTarget:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getTransmissionTarget()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 2) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getTransmissionTarget()"]);
-    return;
-  }
-
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to getTransmissionTarget()"]);
-    return;
-  }
+- (NSString *)getTransmissionTarget:(id)args
+{
+  NSString *targetToken = nil;
+  KrollCallback *callback = nil;
+  ENSURE_ARG_AT_INDEX(targetToken, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(callback, args, 1, KrollCallback);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget == nil) {
-    [callback call:nil thisObject:Tag];
+    return nil;
   } else {
     [mTransmissionTargets setObject:transmissionTarget forKey:targetToken];
-
-    [callback call:[NSArray arrayWithObject:targetToken] thisObject:Tag];
+    return targetToken;
   }
 }
 
-- (void)isTransmissionTargetEnabled:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isTransmissionTargetEnabled()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 2) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to isTransmissionTargetEnabled()"]);
-    return;
-  }
-
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to isTransmissionTargetEnabled()"]);
-    return;
-  }
+- (void)isTransmissionTargetEnabled:(id)args
+{
+  NSString *targetToken = nil;
+  KrollCallback *callback = nil;
+  ENSURE_ARG_AT_INDEX(targetToken, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(callback, args, 1, KrollCallback);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = (MSAnalyticsTransmissionTarget *)[mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget == nil) {
-    [callback call:nil thisObject:Tag];
+    [callback call:nil thisObject:self];
   } else {
-    [callback call:[NSArray arrayWithObject:[NSNumber numberWithBool:[transmissionTarget isEnabled]]] thisObject:Tag];
+    [callback call:[NSArray arrayWithObject:[NSNumber numberWithBool:[transmissionTarget isEnabled]]] thisObject:self];
   }
 }
 
-- (void)setTransmissionTargetEnabled:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEnabled()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEnabled()"]);
-    return;
-  }
-
+- (void)setTransmissionTargetEnabled:(id)args
+{
+  NSString *targetToken = nil;
+  KrollCallback *callback = nil;
+  ENSURE_ARG_AT_INDEX(targetToken, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(callback, args, 1, KrollCallback);
   BOOL enabled = [TiUtils boolValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to setTransmissionTargetEnabled()"]);
-    return;
-  }
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget == nil) {
-    [callback call:nil thisObject:Tag];
+    [callback call:nil thisObject:self];
   } else {
     [transmissionTarget setEnabled:enabled];
 
-    [callback call:[NSArray arrayWithObject:[NSNumber numberWithBool:enabled]] thisObject:Tag];
+    [callback call:[NSArray arrayWithObject:[NSNumber numberWithBool:enabled]] thisObject:self];
   }
 }
 
-- (void)setTransmissionTargetEventProperty:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEventProperty()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 4) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetEventProperty()"]);
-    return;
-  }
-
-  NSString *propertyKey = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *propertyValue = [TiUtils stringValue:[args objectAtIndex:1]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:2]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:3];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to setTransmissionTargetEventProperty()"]);
-    return;
-  }
+- (void)setTransmissionTargetEventProperty:(id)args
+{
+  NSString *propertyKey = nil;
+  NSString *propertyValue = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(propertyKey, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(propertyValue, args, 1, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 2, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator setEventPropertyString:propertyKey forKey:propertyValue];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
-- (void)removeTransmissionTargetEventProperty:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to removeTransmissionTargetEventProperty()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to removeTransmissionTargetEventProperty()"]);
-    return;
-  }
-
-  NSString *propertyKey = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to removeTransmissionTargetEventProperty()"]);
-    return;
-  }
+- (void)removeTransmissionTargetEventProperty:(id)args
+{
+  NSString *propertyKey = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(propertyKey, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 1, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator removeEventPropertyForKey:propertyKey];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
-- (void)collectTransmissionTargetDeviceId:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to collectTransmissionTargetDeviceId()"]);
-    return;
-  }
+- (void)collectTransmissionTargetDeviceId:(id)args
+{
+  ENSURE_SINGLE_ARG(args, NSString)
 
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 2) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to collectTransmissionTargetDeviceId()"]);
-    return;
-  }
-
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:1];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to collectTransmissionTargetDeviceId()"]);
-    return;
-  }
-
-  MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
+  MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:args];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator collectDeviceId];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
-- (void)getChildTransmissionTarget:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getChildTransmissionTarget()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to getChildTransmissionTarget()"]);
-    return;
-  }
-
-  NSString *childToken = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
-
-  if (callback == nil) {
-    NSLog([Tag stringByAppendingString:@": No callback passed to getChildTransmissionTarget()"]);
-    return;
-  }
+- (NSString *)getChildTransmissionTarget:(id)args
+{
+  NSString *childToken = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(childToken, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 1, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget == nil) {
-    [callback call:nil thisObject:Tag];
-    return;
+    return nil;
   }
 
   MSAnalyticsTransmissionTarget *childTarget = [transmissionTarget transmissionTargetForToken:childToken];
   if (childTarget == nil) {
-    [callback call:nil thisObject:Tag];
-    return;
+    return nil;
   }
 
   [mTransmissionTargets setObject:childTarget forKey:childToken];
-
-  [callback call:[NSArray arrayWithObject:childToken] thisObject:Tag];
+  return childToken;
 }
 
-- (void)setTransmissionTargetAppName:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppName()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppName()"]);
-    return;
-  }
-
-  NSString *appName = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
+- (void)setTransmissionTargetAppName:(id)args
+{
+  NSString *appName = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(appName, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 1, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator setAppName:appName];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
-- (void)setTransmissionTargetAppVersion:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppVersion()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppVersion()"]);
-    return;
-  }
-
-  NSString *appVersion = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
+- (void)setTransmissionTargetAppVersion:(id)args
+{
+  NSString *appVersion = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(appVersion, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 1, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator setAppVersion:appVersion];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
-- (void)setTransmissionTargetAppLocale:(id)arguments {
-  if (arguments == nil) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppLocale()"]);
-    return;
-  }
-
-  NSArray *args = (NSArray *)arguments;
-
-  if (args.count < 3) {
-    NSLog([Tag stringByAppendingString:@": Wrong arguments count passed to setTransmissionTargetAppLocale()"]);
-    return;
-  }
-
-  NSString *appLocale = [TiUtils stringValue:[args objectAtIndex:0]];
-  NSString *targetToken = [TiUtils stringValue:[args objectAtIndex:1]];
-  KrollCallback *callback = [TiAppCenterUtils getCallback:args atIndex:2];
+- (void)setTransmissionTargetAppLocale:(id)args
+{
+  NSString *appLocale = nil;
+  NSString *targetToken = nil;
+  ENSURE_ARG_AT_INDEX(appLocale, args, 0, NSString);
+  ENSURE_ARG_AT_INDEX(targetToken, args, 1, NSString);
 
   MSAnalyticsTransmissionTarget *transmissionTarget = [mTransmissionTargets objectForKey:targetToken];
   if (transmissionTarget != nil) {
     MSPropertyConfigurator *configurator = [transmissionTarget propertyConfigurator];
     [configurator setAppLocale:appLocale];
   }
-
-  [callback call:nil thisObject:Tag];
 }
 
 @end
