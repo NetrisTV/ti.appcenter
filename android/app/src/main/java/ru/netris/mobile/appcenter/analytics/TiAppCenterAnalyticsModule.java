@@ -76,20 +76,17 @@ public class TiAppCenterAnalyticsModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void trackEvent(String eventName, KrollDict properties, KrollFunction callback)
+	public void trackEvent(String eventName, KrollDict properties)
 	{
 		try {
 			Analytics.trackEvent(eventName, TiAppCenterUtils.convertReadableMapToStringMap(properties));
 		} catch (JSONException e) {
 			AppCenterLog.error(LOG_TAG, "Could not convert event properties from JavaScript to Java", e);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void trackTransmissionTargetEvent(String eventName, KrollDict properties, String targetToken,
-											 KrollFunction callback)
+	public void trackTransmissionTargetEvent(String eventName, KrollDict properties, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
@@ -99,22 +96,17 @@ public class TiAppCenterAnalyticsModule extends KrollModule
 				AppCenterLog.error(LOG_TAG, "Could not convert event properties from JavaScript to Java", e);
 			}
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void getTransmissionTarget(String targetToken, KrollFunction callback)
+	public String getTransmissionTarget(String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = Analytics.getTransmissionTarget(targetToken);
 		if (transmissionTarget == null) {
-			Object[] args = new Object[] { null };
-			callback.call(getKrollObject(), args);
-			return;
+			return null;
 		}
 		mTransmissionTargets.put(targetToken, transmissionTarget);
-		Object[] args = new Object[] { targetToken };
-		callback.call(getKrollObject(), args);
+		return targetToken;
 	}
 
 	@Kroll.method
@@ -158,95 +150,77 @@ public class TiAppCenterAnalyticsModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void setTransmissionTargetEventProperty(String propertyKey, String propertyValue, String targetToken,
-												   KrollFunction callback)
+	public void setTransmissionTargetEventProperty(String propertyKey, String propertyValue, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.setEventProperty(propertyKey, propertyValue);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void removeTransmissionTargetEventProperty(String propertyKey, String targetToken, KrollFunction callback)
+	public void removeTransmissionTargetEventProperty(String propertyKey, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.removeEventProperty(propertyKey);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void collectTransmissionTargetDeviceId(String targetToken, KrollFunction callback)
+	public void collectTransmissionTargetDeviceId(String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.collectDeviceId();
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void getChildTransmissionTarget(String childToken, String parentToken, KrollFunction callback)
+	public String getChildTransmissionTarget(String childToken, String parentToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(parentToken);
 		if (transmissionTarget == null) {
-			Object[] args = new Object[] { null };
-			callback.call(getKrollObject(), args);
-			return;
+			return null;
 		}
 		AnalyticsTransmissionTarget childTarget = transmissionTarget.getTransmissionTarget(childToken);
 		if (childTarget == null) {
-			Object[] args = new Object[] { null };
-			callback.call(getKrollObject(), args);
-			return;
+			return null;
 		}
 		mTransmissionTargets.put(childToken, childTarget);
-		Object[] args = new Object[] { childToken };
-		callback.call(getKrollObject(), args);
+		return childToken;
 	}
 
 	@Kroll.method
-	public void setTransmissionTargetAppName(String appName, String targetToken, KrollFunction callback)
+	public void setTransmissionTargetAppName(String appName, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.setAppName(appName);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void setTransmissionTargetAppVersion(String appVersion, String targetToken, KrollFunction callback)
+	public void setTransmissionTargetAppVersion(String appVersion, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.setAppVersion(appVersion);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 
 	@Kroll.method
-	public void setTransmissionTargetAppLocale(String appLocale, String targetToken, KrollFunction callback)
+	public void setTransmissionTargetAppLocale(String appLocale, String targetToken)
 	{
 		AnalyticsTransmissionTarget transmissionTarget = mTransmissionTargets.get(targetToken);
 		if (transmissionTarget != null) {
 			PropertyConfigurator configurator = transmissionTarget.getPropertyConfigurator();
 			configurator.setAppLocale(appLocale);
 		}
-		Object[] args = new Object[] { null };
-		callback.call(getKrollObject(), args);
 	}
 }
