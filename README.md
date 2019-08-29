@@ -19,7 +19,7 @@ Run from the `android` directory
 
 **Important:** module dependencies are not included in this repository. Command above will download them for you.
 
-If for some reasons you want to build this module using only `appc` or `titanium` cli commands, you should download exoplayer libraries (or build them locally) and put into `app/libs` (or `android/lib` which is symlink). After that you should run:
+If for some reasons you want to build this module using only `appc` or `titanium` cli commands, you should download App Center SDK and put into `android/app/libs` (or `android/lib` which is symlink). After that you should run:
 
 >`appc run -p android --build-only`
 
@@ -28,6 +28,16 @@ or
 >`ti build -p android --build-only`
 
 from the `android` directory
+
+### iOS
+
+Update SDK version and its location in `ios/titanium.xcconfig` if you need.
+Run from `ios` directory
+>`appc run -p ios --build-only`
+
+or
+
+>`ti build -p ios --build-only`
 
 ## Install
 
@@ -40,7 +50,7 @@ Add the module as a dependency to your application by editing `tiapp.xml`.
 Example:
 
     <modules>
-      <module version="1.0.0">ru.netris.mobile.appcenter</module>
+      <module version="1.0.1">ru.netris.mobile.appcenter</module>
     </modules>
 
 When you run your project, the compiler will combine module along with its dependencies
@@ -56,9 +66,10 @@ To start `Analytics` module on application start edit your `tiapp.xml` and add p
 
     <property name="ti.appcenter.analytics.start-on-create">true</property>
 
-You must also define `"ti.appcenter.secret.android"` property to be able to run `Crashes` and/or `Analytics` modules on application create:
+You must also define `"ti.appcenter.secret.{PLATFORM}"` property to be able to run `Crashes` and/or `Analytics` modules on application create:
 
     <property name="ti.appcenter.secret.android">{YOUR_APP_SECRET}</property>
+    <property name="ti.appcenter.secret.ios">{YOUR_APP_SECRET}</property>
 
 ### Manual modules start
 
