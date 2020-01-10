@@ -21,7 +21,7 @@ import ru.netris.mobile.appcenter.utils.TiAppCenterUtils;
 
 import static com.microsoft.appcenter.analytics.Analytics.LOG_TAG;
 
-@Kroll.module(name = "Analytics")
+@Kroll.module(parentModule = TiAppcenterModule.class, name = "Analytics")
 public class TiAppCenterAnalyticsModule extends KrollModule
 {
 	private static TiAppCenterAnalyticsModule instance;

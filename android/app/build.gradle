@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-def appCenterSdkVersion = '2.2.0'
+def appCenterSdkVersion = '2.5.1'
 def tiSDKVersion = getRootProject().ext.tiSDKVersion
 
 android {

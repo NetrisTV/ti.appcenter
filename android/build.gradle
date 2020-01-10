@@ -1,8 +1,8 @@
 import groovy.json.JsonSlurper
 
 ext {
-    tiSDKName = "7.4.1.GA"
-    tiSDKVersion = "7.4.1-ga"
+    tiSDKName = "8.3.0.GA"
+    tiSDKVersion = "8.3.0.GA"
 }
 
 def getSdkPath = { ->

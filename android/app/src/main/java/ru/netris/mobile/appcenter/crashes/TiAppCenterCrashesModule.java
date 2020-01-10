@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import ru.netris.mobile.appcenter.TiAppcenterModule;
 import ru.netris.mobile.appcenter.utils.TiAppCenterUtils;
 
-@Kroll.module(name = "Crashes")
+@Kroll.module(parentModule = TiAppcenterModule.class, name = "Crashes")
 public class TiAppCenterCrashesModule extends KrollModule
 {
 
@@ -92,6 +92,18 @@ public class TiAppCenterCrashesModule extends KrollModule
 			public void accept(Boolean hasCrashed)
 			{
 				Object[] args = new Object[] { hasCrashed };
+				callback.call(getKrollObject(), args);
+			}
+		});
+	}
+
+	@Kroll.method
+	public void hasReceivedMemoryWarningInLastSession(final KrollFunction callback) {
+		Crashes.hasReceivedMemoryWarningInLastSession().thenAccept(new AppCenterConsumer<Boolean>() {
+
+			@Override
+			public void accept(Boolean hasWarning) {
+				Object[] args = new Object[] { hasWarning };
 				callback.call(getKrollObject(), args);
 			}
 		});
