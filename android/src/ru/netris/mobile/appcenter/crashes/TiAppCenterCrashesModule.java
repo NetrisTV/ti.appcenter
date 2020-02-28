@@ -98,11 +98,13 @@ public class TiAppCenterCrashesModule extends KrollModule
 	}
 
 	@Kroll.method
-	public void hasReceivedMemoryWarningInLastSession(final KrollFunction callback) {
+	public void hasReceivedMemoryWarningInLastSession(final KrollFunction callback)
+	{
 		Crashes.hasReceivedMemoryWarningInLastSession().thenAccept(new AppCenterConsumer<Boolean>() {
 
 			@Override
-			public void accept(Boolean hasWarning) {
+			public void accept(Boolean hasWarning)
+			{
 				Object[] args = new Object[] { hasWarning };
 				callback.call(getKrollObject(), args);
 			}
