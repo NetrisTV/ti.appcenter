@@ -8,36 +8,17 @@ App Center Crashes will automatically generate a crash log every time your app c
 App Center Analytics helps you understand user behavior and customer engagement to improve your app. The SDK automatically captures session count, device properties like model, OS version, etc. You can define your own custom events to measure things that matter to you. All the information captured is available in the App Center portal for you to analyze the data.
 
 ## Requirements
-- Titanium Mobile SDK 7.0.0.GA or later
+- Titanium Mobile SDK 9.0.0.GA or later
 
 ## Building
 
-### Android
-
-Run from the `android` directory
->`./gradlew tiBuild`
-
-**Important:** module dependencies are not included in this repository. Command above will download them for you.
-
-If for some reasons you want to build this module using only `appc` or `titanium` cli commands, you should download App Center SDK and put into `android/app/libs` (or `android/lib` which is symlink). After that you should run:
-
->`appc run -p android --build-only`
-
-or
-
->`ti build -p android --build-only`
-
-from the `android` directory
-
-### iOS
-
 Update SDK version and its location in `ios/titanium.xcconfig` if you need.
-Run from `ios` directory
->`appc run -p ios --build-only`
 
-or
+Run from platform directory ([Appcelerator CLI](https://github.com/appcelerator/appc-install)):
+>`appc run -p [android|ios] --build-only`
 
->`ti build -p ios --build-only`
+or ([Titanium CLI](https://github.com/appcelerator/titanium)):
+>`ti build -p [android|ios] --build-only`
 
 ## Install
 
@@ -50,7 +31,7 @@ Add the module as a dependency to your application by editing `tiapp.xml`.
 Example:
 
     <modules>
-      <module version="1.0.1">ru.netris.mobile.appcenter</module>
+      <module>ru.netris.mobile.appcenter</module>
     </modules>
 
 When you run your project, the compiler will combine module along with its dependencies
