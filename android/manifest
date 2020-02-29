@@ -4,7 +4,8 @@
 #
 version: 2.0.0
 apiversion: 4
-architectures: arm64-v8a armeabi-v7a x86 x86_64
+#architectures: arm64-v8a armeabi-v7a x86 x86_64
+architectures: arm64-v8a armeabi-v7a x86
 description: Visual Studio App Center SDK for Axway Titanium
 author: Sergey Volkov <s.volkov@netris.ru>
 license: Apache 2.0
@@ -15,4 +16,4 @@ name: ti.appcenter
 moduleid: ru.netris.mobile.appcenter
 guid: b9eab43a-1867-45ef-b6f6-46db26f0c6ef
 platform: android
-minsdk: 9.0.0
+minsdk: 8.3.1.GA
