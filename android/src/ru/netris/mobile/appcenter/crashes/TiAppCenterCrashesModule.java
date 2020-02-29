@@ -17,7 +17,9 @@ import org.appcelerator.titanium.util.TiConvert;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import ru.netris.mobile.appcenter.TiAppcenterModule;
 import ru.netris.mobile.appcenter.utils.TiAppCenterUtils;
@@ -65,6 +67,26 @@ public class TiAppCenterCrashesModule extends KrollModule
 	public String getApiName()
 	{
 		return "TiAppCenterCrashes";
+	}
+
+	@Kroll.method
+	public void trackError(String exception, KrollDict[] properties)
+	{
+		try {
+			Map<String, String> propertiesHash = new HashMap<String, String>();
+			if (properties != null) {
+				for (KrollDict prop : properties) {
+					String key = TiConvert.toString(prop, "key");
+					String value = TiConvert.toString(prop, "value");
+					propertiesHash.put(key, value);
+				}
+			}
+
+			Crashes.trackError(new Exception(exception), propertiesHash, null);
+		} catch (Exception e) {
+			TiAppCenterUtils.logError("Failed to track error: " + exception);
+			TiAppCenterUtils.logError(android.util.Log.getStackTraceString(e));
+		}
 	}
 
 	@Kroll.method
