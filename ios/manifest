@@ -15,4 +15,4 @@ name: ti.appcenter
 moduleid: ru.netris.mobile.appcenter
 guid: 0443bb65-2ff4-47a3-b9b0-e09f3b41b542
 platform: iphone
-minsdk: 7.4.1.GA
+minsdk: 8.3.1.GA

@@ -4,4 +4,6 @@
 /captures
 /ios/build
 /ios/*.zip
-
+/android/lib
+/android/libs
+/android/java-sources.txt
